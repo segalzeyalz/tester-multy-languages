@@ -1,5 +1,5 @@
 export const describe = (description, fn) => {
-    console.log(description)
+    console.info(description)
     fn()
 }
 
