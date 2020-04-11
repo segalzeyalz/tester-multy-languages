@@ -1,10 +1,3 @@
-export const describe = (description, fn) => {
-    console.info(description)
-    fn()
-}
-
-export const it = (msg, fn) => describe(`   ${msg}`, fn)
-
 const sucessWriter = () => {
     console.info("pass")
     return true
@@ -19,13 +12,22 @@ const conditionLoggerWritter = (condition) => {
     condition ? sucessWriter() : failureWriter()
 }
 
-export const matchers = (exp) => ({
+const matchers = (exp) => ({
     toBe: (assertion) => {
-        conditionLoggerWritter(exp === assertion)
+        const condition = exp === assertion
+        conditionLoggerWritter(condition)
     },
     errToBe: (err) => {
-        conditionLoggerWritter(err.message === exp.message)
+        const condition = err.message === exp.message
+        conditionLoggerWritter(condition)
     }
 })
+
+export const describe = (description, fn) => {
+    console.info(description)
+    fn()
+}
+
+export const it = (msg, fn) => describe(`   ${msg}`, fn)
 
 export const expect = (exp) => matchers(exp)
