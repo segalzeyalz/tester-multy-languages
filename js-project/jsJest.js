@@ -15,16 +15,30 @@ const matchers = (exp) => ({
       return false
     }
   }
-
 })
 
 const expect = (exp) => matchers(exp)
 
-const addr = (a,b) => a+b
+const addr = (a,b) => {
+  if ((typeof a==="number") && (typeof b==="number")){
+    return a+b
+  }
+    throw new Error("You must use only numbers as func params")
+}
 
 describe("addr", () => {
   it("adds two numbers", ()=>{
-    const result = addr(1,4)
-    expect(result).toBe(5)
+    const res = addr(1,4)
+    expect(res).toBe(5)
   })
+  it("Should add two negative numbers correctly", ()=>{
+    const res = addr(-1, -5)
+    expect(res).toBe(-6)
+  })
+  it("Should throw error", ()=>{
+    res = addr(-1, "lala")
+    expect(res).toBe("-1lala")
+
+  })
+
 })
