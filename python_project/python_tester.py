@@ -1,10 +1,8 @@
-import logging
+from python_project.py_jest import PyJest
+from python_project.test_logger import TestLogger
 
 
-class PythonJestLogger:
-    def __init__(self):
-        self.logger = logging.getLogger("python_jest")
-
+class PythonJestLogger(TestLogger):
     def describe(self, description, fn):
         # self.logger.info(description)
         print(description)
@@ -23,24 +21,9 @@ class PythonJestLogger:
         # self.logger.error("fail")
         return False
 
-    def conditional_logger_writer(self, condition: bool):
-        if condition:
-            return self._success_writer()
-        else:
-            return self._failure_writer()
 
-
-tester_logger = PythonJestLogger()
-
-
-def matchers(exp):
-    return {
-        "to_be": lambda assertion: tester_logger.conditional_logger_writer(exp == assertion)
-    }
+tester_logger = PythonJestLogger("jest_test")
 
 
 def expect(exp):
-    return matchers(exp)
-
-
-expect(5)["to_be"](5)
+    return PyJest(tester_logger, exp)
