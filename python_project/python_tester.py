@@ -20,3 +20,12 @@ tester_logger = PythonJestLogger("jest_test")
 
 def expect(exp):
     return PyJest(tester_logger, exp)
+
+
+def describe(description, fn):
+    tester_logger.write(description)
+    fn()
+
+
+def it(msg, fn):
+    describe(f'{msg}', fn)
