@@ -8,13 +8,16 @@ class TestLogger(ABC):
         logging_name = logging_name if not None else "testing"
         self.logger = logging.getLogger(logging_name)
 
-    def _success_writer(self):
+    def write(self, msg):
         raise NotImplemented
 
-    def _failure_writer(self):
+    def _success_writer(self) -> True:
         raise NotImplemented
 
-    def conditional_logger_writer(self, condition: bool):
+    def _failure_writer(self) -> False:
+        raise NotImplemented
+
+    def conditional_logger_writer(self, condition: bool) -> bool:
         if condition:
             return self._success_writer()
         else:

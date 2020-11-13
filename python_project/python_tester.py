@@ -3,15 +3,11 @@ from python_project.test_logger import TestLogger
 
 
 class PythonJestLogger(TestLogger):
-    def describe(self, description, fn):
-        self.logger.info(description)
-        fn()
-
-    def it(self, msg, fn):
-        self.describe(f'{msg}', fn)
+    def write(self, msg: str):
+        self.logger.info(msg)
 
     def _success_writer(self):
-        self.logger.info("pass")
+        self.write("pass")
         return True
 
     def _failure_writer(self):
